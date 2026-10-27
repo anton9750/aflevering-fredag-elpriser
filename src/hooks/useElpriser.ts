@@ -8,8 +8,6 @@ interface UseElpriserResultat {
   fejl: string | null
 }
 
-// Henter elpriser for en given dag og region fra elprisenligenu.dk's gratis API.
-// Bruger kun useState + useEffect, helt uden useCallback/useMemo, som aftalt.
 export function useElpriser(dato: Date, region: Prisklasse): UseElpriserResultat {
   const [priser, sætPriser] = useState<Prispunkt[]>([])
   const [henterData, sætHenterData] = useState(true)
