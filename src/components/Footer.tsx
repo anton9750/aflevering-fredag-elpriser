@@ -1,8 +1,7 @@
 import styled from 'styled-components'
 import { useSettings, regionsNavn } from '../context/SettingsContext'
 
-// Footer-teksten der går igen nederst på hver side, med de to grønne links
-// der matcher designet ("ex. moms" og regionsnavnet).
+
 export function Footer() {
   const { region } = useSettings()
 
