@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { ElprisRaa, Prisklasse, Prispunkt } from '../types/elpris'
-import { tilApiDatoDele } from '../utils/dato'
+
 
 interface UseElpriserResultat {
   priser: Prispunkt[]
