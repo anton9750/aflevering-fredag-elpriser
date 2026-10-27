@@ -19,7 +19,7 @@ export function Nav() {
 
         <Faner>
           <Fane to="/oversigt">OVERSIGT</Fane>
-          <Fane to="/" end>LIGE NU</Fane>
+          <Fane to="/" end>LIG NU</Fane>
           <Fane to="/historik">HISTORIK</Fane>
         </Faner>
       </Indhold>
