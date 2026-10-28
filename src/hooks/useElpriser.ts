@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { ElprisRaa, Prisklasse, Prispunkt } from '../types/elpris'
-
+import { tilApiDatoDele } from '../utils/dato'
 
 interface UseElpriserResultat {
   priser: Prispunkt[]
@@ -8,14 +8,14 @@ interface UseElpriserResultat {
   fejl: string | null
 }
 
+
 export function useElpriser(dato: Date, region: Prisklasse): UseElpriserResultat {
   const [priser, sætPriser] = useState<Prispunkt[]>([])
   const [henterData, sætHenterData] = useState(true)
   const [fejl, sætFejl] = useState<string | null>(null)
 
   useEffect(() => {
-    // "annulleret" bruges til at undgå at opdatere state, hvis komponenten
-    // er skiftet til en ny dato/region inden det gamle kald er færdigt
+
     let annulleret = false
 
     async function hentPriser() {

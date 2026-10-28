@@ -9,10 +9,7 @@ interface DashboardLayoutProps {
   aktivtPanel: AktivtPanel
 }
 
-// Selve hjertet i layoutet. På mobil viser vi kun ét af de tre paneler ad gangen,
-// styret af hvilken rute brugeren er på (ligesom separate "sider").
-// På desktop (se Grid-komponenten) ignorerer vi det, og viser alle tre
-// paneler side om side, præcis som i "Desktop - Dashboard" designet.
+
 export function DashboardLayout({ aktivtPanel }: DashboardLayoutProps) {
   return (
     <Grid>
