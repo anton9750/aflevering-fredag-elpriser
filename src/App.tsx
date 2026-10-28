@@ -12,7 +12,7 @@ function App() {
   return (
     <SettingsProvider>
 
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <Nav />
 
         <Routes>
