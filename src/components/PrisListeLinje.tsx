@@ -3,16 +3,13 @@ import styled from 'styled-components'
 interface PrisListeLinjeProps {
   klokkeslæt: string
   pris: string
-  farve: string
 }
 
-// En enkelt linje i pris-listerne på Historik- og Oversigt-siderne,
-// fx "kl. 19.00 ........ 0.524 kr"
-export function PrisListeLinje({ klokkeslæt, pris, farve }: PrisListeLinjeProps) {
+export function PrisListeLinje({ klokkeslæt, pris }: PrisListeLinjeProps) {
   return (
     <Linje>
       <Klokkeslæt>{klokkeslæt}</Klokkeslæt>
-      <Pris $farve={farve}>{pris} kr</Pris>
+      <Pris>{pris} kr</Pris>
     </Linje>
   )
 }
@@ -36,7 +33,7 @@ const Klokkeslæt = styled.span`
   color: ${(props) => props.theme.colors.tekstDæmpet};
 `
 
-const Pris = styled.span<{ $farve: string }>`
+const Pris = styled.span`
   font-weight: 700;
-  color: ${(props) => props.$farve};
+  color: ${(props) => props.theme.colors.tekst};
 `

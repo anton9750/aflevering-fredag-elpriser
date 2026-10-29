@@ -12,9 +12,6 @@ export const theme = {
 
     // Branding / accent
     accent: '#55EC20',
-
-
-    prisskala: ['#00FF29', '#33FF00', '#B8FF22', '#EDFF23', '#FFD645', '#FF7A00', '#FF8717', '#FF4D00'],
   },
 
   skrifttype: "'Roboto', sans-serif",

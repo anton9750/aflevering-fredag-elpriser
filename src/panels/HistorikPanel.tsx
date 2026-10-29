@@ -8,7 +8,6 @@ import { useElpriser } from '../hooks/useElpriser'
 import { useSettings } from '../context/SettingsContext'
 import { medEventueltMoms, formaterPris } from '../utils/pris'
 import { formaterDatoKort, formaterKlokkeslæt, tilInputDato } from '../utils/dato'
-import { prisfarve } from '../utils/prisfarve'
 
 // Historik-panelet, hvor man kan vælge en vilkårlig dato og se timepriserne for den dag.
 // Elprisenligenu.dk's API understøtter historik tilbage til 1. november 2022.
@@ -17,10 +16,6 @@ export function HistorikPanel() {
   const [valgtDato, sætValgtDato] = useState(new Date())
 
   const { priser, henterData, fejl } = useElpriser(valgtDato, region)
-
-  const alleDkkPriser = priser.map((p) => p.dkkPerKwh)
-  const minPris = alleDkkPriser.length > 0 ? Math.min(...alleDkkPriser) : 0
-  const maxPris = alleDkkPriser.length > 0 ? Math.max(...alleDkkPriser) : 0
 
   function håndterDatoÆndring(event: ChangeEvent<HTMLInputElement>) {
     const nyDato = event.target.valueAsDate
@@ -54,7 +49,6 @@ export function HistorikPanel() {
               key={punkt.timeStart.toISOString()}
               klokkeslæt={formaterKlokkeslæt(punkt.timeStart)}
               pris={formaterPris(medEventueltMoms(punkt.dkkPerKwh, visMedMoms))}
-              farve={prisfarve(punkt.dkkPerKwh, minPris, maxPris)}
             />
           ))}
         </Liste>

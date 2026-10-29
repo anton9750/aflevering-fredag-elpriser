@@ -24,7 +24,7 @@ export function tilInputDato(dato: Date): string {
   return `${aar}-${maaned}-${dag}`
 }
 
-// Formaterer et timeinterval som "kl. 19.00", ligesom i prislisterne
+ 
 export function formaterKlokkeslæt(dato: Date): string {
   return `kl. ${totocifret(dato.getHours())}.00`
 }

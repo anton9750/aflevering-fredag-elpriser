@@ -7,8 +7,6 @@ import { useSettings } from '../context/SettingsContext'
 import { medEventueltMoms, formaterPris } from '../utils/pris'
 import { formaterKlokkeslæt } from '../utils/dato'
 
-import { prisfarve } from '../utils/prisfarve'
-
 // Panelet der viser et overblik over hele dagens priser: laveste/højeste måler
 // øverst, og en liste med alle 24 timer nedenunder.
 export function OversigtPanel() {
@@ -64,7 +62,6 @@ export function OversigtPanel() {
                 key={punkt.timeStart.toISOString()}
                 klokkeslæt={formaterKlokkeslæt(punkt.timeStart)}
                 pris={formaterPris(medEventueltMoms(punkt.dkkPerKwh, visMedMoms))}
-                farve={prisfarve(punkt.dkkPerKwh, minPris, maxPris)}
               />
             ))}
           </Liste>
