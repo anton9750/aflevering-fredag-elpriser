@@ -9,8 +9,7 @@ import { useSettings } from '../context/SettingsContext'
 import { medEventueltMoms, formaterPris } from '../utils/pris'
 import { formaterDatoKort, formaterKlokkeslæt, tilInputDato } from '../utils/dato'
 
-// Historik-panelet, hvor man kan vælge en vilkårlig dato og se timepriserne for den dag.
-// Elprisenligenu.dk's API understøtter historik tilbage til 1. november 2022.
+
 export function HistorikPanel() {
   const { region, visMedMoms } = useSettings()
   const [valgtDato, sætValgtDato] = useState(new Date())
@@ -21,7 +20,7 @@ export function HistorikPanel() {
     const nyDato = event.target.valueAsDate
 
     if (nyDato) {
-      // input[type=date] giver dato i UTC midnat, så vi justerer til lokal tid
+
       sætValgtDato(new Date(nyDato.getUTCFullYear(), nyDato.getUTCMonth(), nyDato.getUTCDate()))
     }
   }

@@ -1,7 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 
-// Global nulstilling og grundlæggende typografi for hele appen.
-// Holdes bevidst enkel, resten af det visuelle ligger i de enkelte komponenter.
+
 export const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;

@@ -35,8 +35,8 @@ export function LigeNuPanel() {
 
   const visningsPris = nuværendePunkt ? medEventueltMoms(nuværendePunkt.dkkPerKwh, visMedMoms) : 0
 
-  // Jo billigere prisen er lige nu ift. dagens udsving, jo mere fyldt er måleren
-  const fylde = maxPris === minPris || !nuværendePunkt ? 1 : 1 - (nuværendePunkt.dkkPerKwh - minPris) / (maxPris - minPris)
+  // Jo dyrere prisen er lige nu ift. dagens udsving, jo mere fyldt er måleren
+  const fylde = maxPris === minPris || !nuværendePunkt ? 1 : (nuværendePunkt.dkkPerKwh - minPris) / (maxPris - minPris)
 
   // Finder den billigste sammenhængende time på dagen, til teksten under måleren
   const billigsteTime = priser.reduce<(typeof priser)[number] | null>((billigst, punkt) => {

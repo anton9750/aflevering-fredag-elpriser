@@ -13,7 +13,7 @@ export function tilApiDatoDele(dato: Date): { aar: string; maaned: string; dag: 
   }
 }
 
-// Formaterer en dato som "14-10-2023", ligesom i Historik-visningen
+
 export function formaterDatoKort(dato: Date): string {
   return `${totocifret(dato.getDate())}-${totocifret(dato.getMonth() + 1)}-${dato.getFullYear()}`
 }
