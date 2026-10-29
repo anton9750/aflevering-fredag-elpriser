@@ -6,13 +6,20 @@ import { useElpriser } from '../hooks/useElpriser'
 import { useSettings } from '../context/SettingsContext'
 import { medEventueltMoms, formaterPris } from '../utils/pris'
 import { formaterKlokkeslæt } from '../utils/dato'
+
 import { prisfarve } from '../utils/prisfarve'
 
 // Panelet der viser et overblik over hele dagens priser: laveste/højeste måler
 // øverst, og en liste med alle 24 timer nedenunder.
 export function OversigtPanel() {
   const { region, visMedMoms } = useSettings()
+
+
+
+
   const { priser, henterData, fejl } = useElpriser(new Date(), region)
+
+
 
   const alleDkkPriser = priser.map((p) => p.dkkPerKwh)
   const minPris = alleDkkPriser.length > 0 ? Math.min(...alleDkkPriser) : 0
@@ -37,10 +44,16 @@ export function OversigtPanel() {
             </MålerMedLabel>
 
             <MålerMedLabel>
+        
+        
               <CirkelMaaler størrelse={90} fylde={1}>
-                <LilleStorPris>{formaterPris(medEventueltMoms(maxPris, visMedMoms))} KR</LilleStorPris>
+          
+          
+                <LilleStorPris>
+                  {formaterPris(medEventueltMoms(maxPris, visMedMoms))} KR</LilleStorPris>
                 <MikroTekst>PR. KWH</MikroTekst>
-              </CirkelMaaler>
+                 
+                     </CirkelMaaler>
               <Label>HØJESTE PRIS</Label>
             </MålerMedLabel>
           </MåleRække>

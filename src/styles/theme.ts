@@ -1,5 +1,3 @@
-// Farvepalette og layout-variabler hentet direkte fra Figma-designet.
-// Al styling i appen bør bruge disse værdier, så det hele hænger visuelt sammen.
 
 export const theme = {
   colors: {
@@ -15,8 +13,7 @@ export const theme = {
     // Branding / accent
     accent: '#55EC20',
 
-    // Prisfarver, fra billigst til dyrest.
-    // Bruges af utils/prisfarve.ts til at farvelægge priser i lister og grafer.
+
     prisskala: ['#00FF29', '#33FF00', '#B8FF22', '#EDFF23', '#FFD645', '#FF7A00', '#FF8717', '#FF4D00'],
   },
 
