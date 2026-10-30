@@ -1,12 +1,16 @@
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
-import { faBolt } from '@fortawesome/free-solid-svg-icons'
+import { faBolt, faGear } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useSettings } from '../context/SettingsContext'
 
 // Topnavigationen. Ligger i App.tsx så den vises på alle sider.
 // Mobil: logo til venstre, faner til højre.
-// Desktop: logo + sidenavn til venstre, faner til højre, lidt mere luft generelt.
+// Desktop: logo + sidenavn til venstre, faner til højre, lidt mere luft generelt,
+// samt ét samlet tandhjul til indstillinger (i stedet for ét pr. panel).
 export function Nav() {
+  const { åbnIndstillinger } = useSettings()
+
   return (
     <Wrapper>
       <Indhold>
@@ -22,6 +26,10 @@ export function Nav() {
           <Fane to="/" end>LIG NU</Fane>
           <Fane to="/historik">HISTORIK</Fane>
         </Faner>
+
+        <TandhjulKnap type="button" onClick={åbnIndstillinger} aria-label="Åbn indstillinger">
+          <FontAwesomeIcon icon={faGear} />
+        </TandhjulKnap>
       </Indhold>
     </Wrapper>
   )
@@ -74,6 +82,12 @@ const SiteNavn = styled.span`
 const Faner = styled.nav`
   display: flex;
   gap: 18px;
+
+  /* Desktop viser alle paneler samlet i dashboardet, så faner til at skifte
+     side giver ikke mening der. */
+  @media (min-width: ${(props) => props.theme.breakpoints.desktop}) {
+    display: none;
+  }
 `
 
 const Fane = styled(NavLink)`
@@ -92,6 +106,33 @@ const Fane = styled(NavLink)`
     color: ${(props) => props.theme.colors.tekst};
 
     &.active {
+      color: ${(props) => props.theme.colors.accent};
+    }
+  }
+`
+
+const TandhjulKnap = styled.button`
+  display: none;
+
+  /* På mobil vises kun ét panel ad gangen, med sit eget tandhjul øverst i
+     kortet. På desktop vises alle paneler samlet, så tandhjulet flyttes
+     herop i stedet, så det kun optræder ét sted. */
+  @media (min-width: ${(props) => props.theme.breakpoints.desktop}) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+
+    color: ${(props) => props.theme.colors.tekst};
+    font-size: 15px;
+    cursor: pointer;
+
+    &:hover {
       color: ${(props) => props.theme.colors.accent};
     }
   }

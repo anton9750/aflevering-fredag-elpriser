@@ -3,13 +3,14 @@ import styled from 'styled-components'
 interface PrisListeLinjeProps {
   klokkeslæt: string
   pris: string
+  farve: string
 }
 
-export function PrisListeLinje({ klokkeslæt, pris }: PrisListeLinjeProps) {
+export function PrisListeLinje({ klokkeslæt, pris, farve }: PrisListeLinjeProps) {
   return (
     <Linje>
       <Klokkeslæt>{klokkeslæt}</Klokkeslæt>
-      <Pris>{pris} kr</Pris>
+      <Pris $farve={farve}>{pris} kr</Pris>
     </Linje>
   )
 }
@@ -33,7 +34,7 @@ const Klokkeslæt = styled.span`
   color: ${(props) => props.theme.colors.tekstDæmpet};
 `
 
-const Pris = styled.span`
+const Pris = styled.span<{ $farve: string }>`
   font-weight: 700;
-  color: ${(props) => props.theme.colors.tekst};
+  color: ${(props) => props.$farve};
 `

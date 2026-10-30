@@ -2,18 +2,17 @@ import styled from 'styled-components'
 import { useEffect, useState } from 'react'
 import { Card } from '../components/Card'
 import { CirkelMaaler } from '../components/CirkelMaaler'
+import { MinMaxMaalere } from '../components/MinMaxMaalere'
 import { useElpriser } from '../hooks/useElpriser'
 import { useSettings } from '../context/SettingsContext'
 import { medEventueltMoms, formaterPris } from '../utils/pris'
 import { formaterKlokkeslæt } from '../utils/dato'
 
-// Panelet der viser den aktuelle elpris lige nu, med den store runde måler.
-// Bruges både som sin egen side på mobil, og som venstre kolonne i dashboardet på desktop.
+
 export function LigeNuPanel() {
   const { region, visMedMoms } = useSettings()
 
-  // "nu" opdateres hvert minut, så siden automatisk hopper videre til næste
-  // time uden at brugeren skal genindlæse siden
+
   const [nu, sætNu] = useState(new Date())
 
   useEffect(() => {
@@ -27,18 +26,25 @@ export function LigeNuPanel() {
   const { priser, henterData, fejl } = useElpriser(nu, region)
 
   const nuværendeTime = nu.getHours()
-  const nuværendePunkt = priser.find((p) => p.timeStart.getHours() === nuværendeTime)
+
+
+  const nuværendePunkt = priser.find((p) => p.timeStart.getHours() === nuværendeTime) //det her tog tid
 
   const alleDkkPriser = priser.map((p) => p.dkkPerKwh)
+
+
+
   const minPris = alleDkkPriser.length > 0 ? Math.min(...alleDkkPriser) : 0
+
+
   const maxPris = alleDkkPriser.length > 0 ? Math.max(...alleDkkPriser) : 0
 
   const visningsPris = nuværendePunkt ? medEventueltMoms(nuværendePunkt.dkkPerKwh, visMedMoms) : 0
 
-  // Jo dyrere prisen er lige nu ift. dagens udsving, jo mere fyldt er måleren
+  // Jo dyrere prisen er lige nu
   const fylde = maxPris === minPris || !nuværendePunkt ? 1 : (nuværendePunkt.dkkPerKwh - minPris) / (maxPris - minPris)
 
-  // Finder den billigste sammenhængende time på dagen, til teksten under måleren
+
   const billigsteTime = priser.reduce<(typeof priser)[number] | null>((billigst, punkt) => {
     if (!billigst || punkt.dkkPerKwh < billigst.dkkPerKwh) {
       return punkt
@@ -55,17 +61,35 @@ export function LigeNuPanel() {
         {fejl && <StatusTekst>{fejl}</StatusTekst>}
 
         {!henterData && !fejl && (
+
           <CirkelMaaler størrelse={210} fylde={fylde}>
+
+
             <StorPris>{formaterPris(visningsPris)} KR</StorPris>
+
+
             <LilleTekst>PR. KWH</LilleTekst>
+
           </CirkelMaaler>
         )}
       </MålerOmråde>
 
       {billigsteTime && (
+
         <BilligsteInterval>
-          {formaterKlokkeslæt(billigsteTime.timeStart)} - {formaterKlokkeslæt(billigsteTime.timeSlut)}
+
+
+          {formaterKlokkeslæt(billigsteTime.timeStart)} - 
+          
+          {formaterKlokkeslæt(billigsteTime.timeSlut)}
         </BilligsteInterval>
+
+      )}
+
+      {!henterData && !fejl && (
+        <MinMaxMaalereOmråde>
+          <MinMaxMaalere minPris={minPris} maxPris={maxPris} visMedMoms={visMedMoms} />
+        </MinMaxMaalereOmråde>
       )}
     </Card>
   )
@@ -116,4 +140,8 @@ const BilligsteInterval = styled.p`
   color: ${(props) => props.theme.colors.accent};
   font-size: 14px;
   font-weight: 600;
+`
+
+const MinMaxMaalereOmråde = styled.div`
+  margin-top: 28px;
 `

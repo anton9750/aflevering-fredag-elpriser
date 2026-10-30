@@ -7,6 +7,7 @@ import { PrisListeLinje } from '../components/PrisListeLinje'
 import { useElpriser } from '../hooks/useElpriser'
 import { useSettings } from '../context/SettingsContext'
 import { medEventueltMoms, formaterPris } from '../utils/pris'
+import { farveForPris } from '../utils/prisFarve'
 import { formaterDatoKort, formaterKlokkeslæt, tilInputDato } from '../utils/dato'
 
 
@@ -16,13 +17,15 @@ export function HistorikPanel() {
 
   const { priser, henterData, fejl } = useElpriser(valgtDato, region)
 
+  const kwhPriser = priser.map((punkt) => medEventueltMoms(punkt.dkkPerKwh, visMedMoms))
+  const minPris = Math.min(...kwhPriser)
+  const maxPris = Math.max(...kwhPriser)
+
   function håndterDatoÆndring(event: ChangeEvent<HTMLInputElement>) {
     const nyDato = event.target.valueAsDate
+    if (!nyDato) return
 
-    if (nyDato) {
-
-      sætValgtDato(new Date(nyDato.getUTCFullYear(), nyDato.getUTCMonth(), nyDato.getUTCDate()))
-    }
+    sætValgtDato(new Date(nyDato.getUTCFullYear(), nyDato.getUTCMonth(), nyDato.getUTCDate()))
   }
 
   return (
@@ -43,11 +46,12 @@ export function HistorikPanel() {
 
       {!henterData && !fejl && (
         <Liste>
-          {priser.map((punkt) => (
+          {priser.map((punkt, index) => (
             <PrisListeLinje
               key={punkt.timeStart.toISOString()}
               klokkeslæt={formaterKlokkeslæt(punkt.timeStart)}
-              pris={formaterPris(medEventueltMoms(punkt.dkkPerKwh, visMedMoms))}
+              pris={formaterPris(kwhPriser[index])}
+              farve={farveForPris(kwhPriser[index], minPris, maxPris)}
             />
           ))}
         </Liste>

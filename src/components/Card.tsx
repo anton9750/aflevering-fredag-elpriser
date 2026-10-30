@@ -62,4 +62,10 @@ const TandhjulKnap = styled.button`
   &:hover {
     color: ${(props) => props.theme.colors.accent};
   }
+
+  /* Desktop viser alle paneler samlet, og der sidder allerede et tandhjul i
+     Nav til at åbne indstillinger, så det på hvert kort fjernes her. */
+  @media (min-width: ${(props) => props.theme.breakpoints.desktop}) {
+    display: none;
+  }
 `
