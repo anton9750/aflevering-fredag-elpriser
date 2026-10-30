@@ -4,7 +4,7 @@ import { PrisListeLinje } from '../components/PrisListeLinje'
 import { useElpriser } from '../hooks/useElpriser'
 import { useSettings } from '../context/SettingsContext'
 import { medEventueltMoms, formaterPris } from '../utils/pris'
-import { farveForPris } from '../utils/prisFarve'
+import { farveForPris } from '../utils/prisfarve'
 import { formaterKlokkeslæt } from '../utils/dato'
 
 

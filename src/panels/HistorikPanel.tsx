@@ -7,7 +7,7 @@ import { PrisListeLinje } from '../components/PrisListeLinje'
 import { useElpriser } from '../hooks/useElpriser'
 import { useSettings } from '../context/SettingsContext'
 import { medEventueltMoms, formaterPris } from '../utils/pris'
-import { farveForPris } from '../utils/prisFarve'
+import { farveForPris } from '../utils/prisfarve'
 import { formaterDatoKort, formaterKlokkeslæt, tilInputDato } from '../utils/dato'
 
 
@@ -48,9 +48,14 @@ export function HistorikPanel() {
         <Liste>
           {priser.map((punkt, index) => (
             <PrisListeLinje
+
               key={punkt.timeStart.toISOString()}
+
               klokkeslæt={formaterKlokkeslæt(punkt.timeStart)}
+
               pris={formaterPris(kwhPriser[index])}
+
+              
               farve={farveForPris(kwhPriser[index], minPris, maxPris)}
             />
           ))}
