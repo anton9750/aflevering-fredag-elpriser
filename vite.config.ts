@@ -27,7 +27,7 @@ export default defineConfig({
         ],
       },
       workbox: {
-        navigateFallback: '/index.html',
+        navigateFallback: 'index.html',
         runtimeCaching: [
           {
             urlPattern: ({ url }) => url.origin === 'https://www.elprisenligenu.dk',
